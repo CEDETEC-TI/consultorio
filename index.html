@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sonrisa Odontología — Reservá tu turno</title>
+<meta name="description" content="Sonrisa Odontología en Formosa. Reservá tu turno online, elegí tratamiento, profesional y horario disponible.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+        --bg: #f4faf9;
+        --bg-panel: #ffffff;
+        --ink: #172421;
+        --ink-soft: #5c6b68;
+        --line: #dfece9;
+        --charcoal: #0f2320;
+        --charcoal-soft: #163430;
+        --teal: #1c8c7d;
+        --teal-dark: #146b60;
+        --teal-light: #4fb7a6;
+        --mint: #cdeee7;
+        --ok: #3f8a52;
+        --danger: #a83232;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background: var(--bg);
+        color: var(--ink);
+        line-height: 1.65;
+        font-weight: 400;
+        overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+        font-family: 'Manrope', sans-serif;
+        font-weight: 800;
+        letter-spacing: -0.3px;
+        color: var(--ink);
+        line-height: 1.15;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+    ul { list-style: none; }
+    button { font-family: inherit; }
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 32px; }
+
+    .eyebrow {
+        font-family: 'Inter', sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        font-size: 0.72rem;
+        font-weight: 700;
+        color: var(--teal);
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 16px;
+    }
+    .eyebrow::before { content: ""; width: 28px; height: 2px; background: var(--teal); }
+    .eyebrow.on-dark { color: var(--teal-light); }
+    .eyebrow.on-dark::before { background: var(--teal-light); }
+
+    .btn {
+        display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+        padding: 15px 30px; border-radius: 8px; font-size: 0.88rem; font-weight: 700;
+        cursor: pointer; border: 1px solid transparent; transition: all 0.2s ease;
+        font-family: 'Inter', sans-serif;
+    }
+    .btn-teal { background: var(--teal); color: #fff; }
+    .btn-teal:hover { background: var(--teal-dark); }
+    .btn-teal:disabled { background: #b9cac6; cursor: not-allowed; }
+    .btn-outline { border-color: rgba(255,255,255,0.5); color: #fff; }
+    .btn-outline:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
+    .btn-outline-dark { border-color: var(--ink); color: var(--ink); background: none; }
+    .btn-outline-dark:hover { background: var(--ink); color: #fff; }
+    .btn-ghost { background: none; color: var(--ink-soft); border-color: var(--line); }
+    .btn-ghost:hover { background: var(--line); }
+    .btn-wa { background: #25D366; color: #fff; }
+    .btn-wa:hover { background: #1fb355; }
+
+    /* ---------- NAV ---------- */
+    header { position: fixed; top: 0; left: 0; right: 0; z-index: 500; padding: 22px 0; transition: all 0.3s ease; }
+    header.scrolled { padding: 12px 0; background: rgba(15, 35, 32, 0.95); backdrop-filter: blur(10px); box-shadow: 0 6px 24px rgba(0,0,0,0.18); }
+    nav.container { display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-family: 'Manrope', sans-serif; font-size: 1.5rem; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 10px; }
+    .logo i { color: var(--teal-light); font-size: 1.2rem; }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a:not(.nav-cta) { color: rgba(255,255,255,0.85); font-size: 0.83rem; font-weight: 600; transition: color 0.2s; }
+    .nav-links a:not(.nav-cta):hover { color: var(--teal-light); }
+    .nav-cta { background: var(--teal); color: #fff !important; padding: 11px 22px; border-radius: 8px; font-weight: 700; font-size: 0.8rem; }
+    .nav-cta:hover { background: var(--teal-dark); }
+    .burger { display: none; background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
+
+    /* ---------- HERO ---------- */
+    .hero {
+        min-height: 100vh; display: flex; align-items: center; position: relative;
+        background:
+            linear-gradient(180deg, rgba(10,26,23,0.6) 0%, rgba(10,26,23,0.8) 55%, rgba(10,26,23,0.97) 100%),
+            url('https://images.unsplash.com/photo-1704455306251-b4634215d98f?q=80&w=1800&auto=format&fit=crop') center/cover no-repeat;
+        color: #fff;
+    }
+    .hero-content { max-width: 660px; padding-top: 90px; }
+    .hero h1 { font-size: clamp(2.4rem, 6vw, 4.2rem); color: #fff; margin-bottom: 20px; }
+    .hero h1 span { color: var(--teal-light); }
+    .hero p { font-family: 'Inter', sans-serif; font-size: 1.08rem; color: rgba(255,255,255,0.82); max-width: 500px; margin-bottom: 34px; font-weight: 400; }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+    /* ---------- STRIP ---------- */
+    .strip { background: var(--charcoal); color: rgba(255,255,255,0.85); padding: 18px 0; }
+    .strip .container { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px; font-size: 0.82rem; font-family: 'Inter', sans-serif; }
+    .strip .item { display: flex; align-items: center; gap: 10px; }
+    .strip i { color: var(--teal-light); }
+
+    /* ---------- SECTION BASE ---------- */
+    section { padding: 100px 0; }
+    .section-head { max-width: 620px; margin-bottom: 50px; }
+    .section-head.center { margin-left: auto; margin-right: auto; text-align: center; }
+    .section-head h2 { font-size: clamp(2.1rem, 4.5vw, 3rem); margin-bottom: 16px; }
+    .section-head p { color: var(--ink-soft); font-size: 1.02rem; font-family: 'Inter', sans-serif; }
+
+    /* ---------- TRATAMIENTOS ---------- */
+    .services { background: var(--bg-panel); }
+    .service-grid-static { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .service-card { border: 1px solid var(--line); border-radius: 10px; padding: 30px 26px; background: var(--bg); transition: all 0.2s ease; }
+    .service-card:hover { border-color: var(--teal); transform: translateY(-3px); }
+    .service-card i { font-size: 1.5rem; color: var(--teal); margin-bottom: 16px; }
+    .service-card h3 { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1.08rem; margin-bottom: 8px; }
+    .service-card p { color: var(--ink-soft); font-size: 0.9rem; margin-bottom: 16px; font-family: 'Inter', sans-serif; }
+    .service-meta { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; border-top: 1px dashed var(--line); padding-top: 14px; font-family: 'Inter', sans-serif; }
+    .service-meta .price { font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 1.15rem; color: var(--teal-dark); }
+    .service-meta .duration { color: var(--ink-soft); display: flex; align-items: center; gap: 6px; }
+
+    /* ---------- BOOKING (SISTEMA DE TURNOS) ---------- */
+    .booking { background: var(--bg); }
+    .booking-card { background: var(--bg-panel); border: 1px solid var(--line); border-radius: 12px; padding: 40px; box-shadow: 0 20px 50px rgba(15,35,32,0.06); }
+
+    .steps-bar { display: flex; align-items: center; margin-bottom: 44px; overflow-x: auto; padding-bottom: 4px; }
+    .step-dot { display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: 0.7rem; color: var(--ink-soft); font-family: 'Inter', sans-serif; font-weight: 600; text-align: center; flex-shrink: 0; width: 88px; }
+    .step-dot span { width: 34px; height: 34px; border-radius: 50%; background: var(--bg-panel); border: 2px solid var(--line); display: flex; align-items: center; justify-content: center; font-family: 'Inter', sans-serif; font-weight: 700; color: var(--ink-soft); transition: all 0.2s; }
+    .step-dot.active span { border-color: var(--teal); color: var(--teal); background: #fff; }
+    .step-dot.done span { border-color: var(--teal); background: var(--teal); color: #fff; }
+    .step-dot.active, .step-dot.done { color: var(--ink); }
+    .step-line { flex: 1; height: 2px; background: var(--line); margin: 0 4px; margin-bottom: 26px; min-width: 20px; }
+    .step-line.done { background: var(--teal); }
+
+    .step-panel h3 { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1.2rem; margin-bottom: 22px; }
+
+    .service-grid, .pro-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .pick-card { border: 2px solid var(--line); border-radius: 10px; padding: 20px; cursor: pointer; background: var(--bg-panel); transition: all 0.15s ease; position: relative; }
+    .pick-card:hover { border-color: var(--teal-light); }
+    .pick-card.selected { border-color: var(--teal); background: #f0faf8; }
+    .pick-card.selected::after { content: "\f00c"; font-family: "Font Awesome 6 Free"; font-weight: 900; position: absolute; top: 12px; right: 12px; color: var(--teal); font-size: 0.85rem; }
+    .pick-card i { font-size: 1.3rem; color: var(--teal); margin-bottom: 10px; }
+    .pick-card h4 { font-family: 'Inter', sans-serif; font-size: 0.96rem; font-weight: 700; margin-bottom: 4px; }
+    .pick-card .meta { font-size: 0.8rem; color: var(--ink-soft); font-family: 'Inter', sans-serif; }
+    .pick-card .meta .price { color: var(--teal-dark); font-weight: 700; }
+
+    .pro-card { text-align: center; }
+    .pro-avatar { width: 64px; height: 64px; border-radius: 50%; overflow: hidden; margin: 0 auto 12px; background: var(--line); }
+    .pro-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+    .date-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 12px; margin-bottom: 24px; }
+    .date-chip { flex-shrink: 0; width: 74px; padding: 12px 6px; border-radius: 10px; border: 2px solid var(--line); background: var(--bg-panel); text-align: center; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; }
+    .date-chip .dow { font-size: 0.68rem; text-transform: uppercase; color: var(--ink-soft); font-weight: 600; }
+    .date-chip .num { font-family: 'Manrope', sans-serif; font-size: 1.4rem; font-weight: 800; margin: 2px 0; }
+    .date-chip .mon { font-size: 0.68rem; color: var(--ink-soft); }
+    .date-chip:hover { border-color: var(--teal-light); }
+    .date-chip.selected { border-color: var(--teal); background: #f0faf8; }
+    .date-chip.disabled { opacity: 0.4; cursor: not-allowed; }
+    .date-chip.disabled:hover { border-color: var(--line); }
+
+    .slot-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(88px, 1fr)); gap: 10px; margin-bottom: 10px; }
+    .slot-btn { padding: 12px 6px; border-radius: 8px; border: 2px solid var(--line); background: var(--bg-panel); font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.86rem; cursor: pointer; transition: all 0.15s; }
+    .slot-btn:hover { border-color: var(--teal-light); }
+    .slot-btn.selected { border-color: var(--teal); background: var(--teal); color: #fff; }
+    .slot-btn.occupied { opacity: 0.35; text-decoration: line-through; cursor: not-allowed; background: var(--line); }
+    .slot-hint { font-size: 0.84rem; color: var(--ink-soft); font-family: 'Inter', sans-serif; }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .form-grid label { display: flex; flex-direction: column; gap: 8px; font-size: 0.85rem; font-weight: 600; font-family: 'Inter', sans-serif; }
+    .form-grid label.full { grid-column: 1 / -1; }
+    .form-grid input { border: 2px solid var(--line); border-radius: 8px; padding: 13px 14px; font-size: 0.95rem; font-family: 'Inter', sans-serif; background: var(--bg-panel); color: var(--ink); }
+    .form-grid input:focus { outline: none; border-color: var(--teal); }
+    .form-error { color: var(--danger); font-size: 0.85rem; margin-top: 14px; font-family: 'Inter', sans-serif; font-weight: 600; }
+
+    .summary-box { background: var(--bg-panel); border: 1px solid var(--line); border-radius: 10px; padding: 26px 28px; }
+    .summary-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px dashed var(--line); font-family: 'Inter', sans-serif; font-size: 0.94rem; }
+    .summary-row:last-child { border-bottom: none; }
+    .summary-row .label { color: var(--ink-soft); }
+    .summary-row .value { font-weight: 700; text-align: right; }
+
+    .success-panel { text-align: center; padding: 20px 0 10px; }
+    .success-icon { font-size: 3.2rem; color: var(--ok); margin-bottom: 18px; }
+    .success-panel h3 { font-family: 'Manrope', sans-serif; font-size: 1.7rem; margin-bottom: 10px; }
+    .success-panel p { color: var(--ink-soft); font-family: 'Inter', sans-serif; margin-bottom: 28px; max-width: 480px; margin-left: auto; margin-right: auto; }
+    .success-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    .step-actions { display: flex; justify-content: space-between; margin-top: 36px; padding-top: 28px; border-top: 1px solid var(--line); }
+
+    .my-bookings { margin-top: 40px; }
+    .my-bookings h4 { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .booking-item { display: flex; justify-content: space-between; align-items: center; gap: 16px; background: var(--bg-panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px 20px; margin-bottom: 10px; font-family: 'Inter', sans-serif; flex-wrap: wrap; }
+    .booking-item .bi-main strong { display: block; margin-bottom: 3px; font-size: 0.92rem; }
+    .booking-item .bi-main span { color: var(--ink-soft); font-size: 0.82rem; }
+    .bi-actions { display: flex; gap: 8px; }
+    .bi-actions a, .bi-actions button { width: 36px; height: 36px; border-radius: 50%; background: none; border: 1px solid var(--line); color: var(--ink-soft); cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .bi-actions .cancel-btn { color: var(--danger); border-color: var(--danger); }
+    .bi-actions a:hover, .bi-actions button:hover { background: var(--line); }
+    .bi-actions .cancel-btn:hover { background: #fbeaea; }
+
+    /* ---------- EQUIPO ---------- */
+    .team { background: var(--bg-panel); }
+    .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+    .team-card { background: var(--bg); border-radius: 10px; overflow: hidden; border: 1px solid var(--line); text-align: center; }
+    .team-photo { height: 240px; overflow: hidden; }
+    .team-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .team-info { padding: 20px 18px 24px; }
+    .team-info h3 { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1.02rem; margin-bottom: 6px; }
+    .team-info p { color: var(--ink-soft); font-size: 0.86rem; font-family: 'Inter', sans-serif; }
+
+    /* ---------- OBRAS SOCIALES ---------- */
+    .insurance { background: var(--charcoal); color: #fff; }
+    .insurance .section-head p { color: rgba(255,255,255,0.65); }
+    .insurance-grid { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+    .insurance-chip { padding: 12px 22px; border: 1px solid rgba(255,255,255,0.2); border-radius: 30px; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.88rem; }
+
+    /* ---------- UBICACIÓN ---------- */
+    .location { background: var(--bg); }
+    .location-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: stretch; }
+    .location-info { display: flex; flex-direction: column; gap: 24px; justify-content: center; }
+    .contact-row { display: flex; gap: 18px; align-items: flex-start; }
+    .contact-row i { color: var(--teal); font-size: 1.05rem; margin-top: 4px; width: 22px; }
+    .contact-row h4 { font-size: 0.98rem; margin-bottom: 4px; font-weight: 700; font-family: 'Inter', sans-serif; }
+    .contact-row p, .contact-row a { color: var(--ink-soft); font-size: 0.94rem; font-family: 'Inter', sans-serif; }
+    .contact-row a:hover { color: var(--teal); }
+    .map-frame { border-radius: 10px; overflow: hidden; min-height: 340px; box-shadow: 0 20px 40px rgba(15,35,32,0.1); }
+    .map-frame iframe { width: 100%; height: 100%; min-height: 340px; border: 0; }
+
+    /* ---------- FOOTER ---------- */
+    footer { background: var(--charcoal); color: rgba(244,250,249,0.6); padding: 56px 0 24px; }
+    .footer-top { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 26px; padding-bottom: 36px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .footer-logo { font-family: 'Manrope', sans-serif; font-size: 1.4rem; color: #fff; font-weight: 800; }
+    .footer-social { display: flex; gap: 14px; }
+    .footer-social a { width: 38px; height: 38px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; color: #fff; transition: all 0.2s; }
+    .footer-social a:hover { background: var(--teal); border-color: var(--teal); }
+    .footer-bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding-top: 22px; font-size: 0.78rem; font-family: 'Inter', sans-serif; }
+    .footer-bottom a { color: var(--teal-light); }
+    .footer-bottom a:hover { text-decoration: underline; }
+
+    /* ---------- WHATSAPP FLOAT ---------- */
+    .wa-float { position: fixed; bottom: 26px; right: 26px; z-index: 400; width: 58px; height: 58px; border-radius: 50%; background: #25D366; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; box-shadow: 0 10px 26px rgba(0,0,0,0.25); animation: floatpulse 2.4s ease infinite; }
+    @keyframes floatpulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 900px) {
+        .service-grid-static, .team-grid, .service-grid, .pro-grid { grid-template-columns: 1fr 1fr; }
+        .location-grid { grid-template-columns: 1fr; }
+        .form-grid { grid-template-columns: 1fr; }
+        .nav-links { display: none; }
+        .nav-links.open {
+            display: flex; position: fixed; top: 64px; left: 0; right: 0;
+            background: rgba(15,35,32,0.97); flex-direction: column; padding: 24px; gap: 20px;
+            backdrop-filter: blur(10px); text-align: center; z-index: 499;
+        }
+        .burger { display: block; }
+        .booking-card { padding: 26px 20px; }
+        .step-dot { width: 64px; font-size: 0.62rem; }
+        .step-dot span { width: 28px; height: 28px; }
+    }
+    @media (max-width: 560px) {
+        section { padding: 64px 0; }
+        .container { padding: 0 20px; }
+        .service-grid-static, .team-grid, .service-grid, .pro-grid { grid-template-columns: 1fr; }
+        .strip .container { flex-direction: column; align-items: flex-start; }
+        .booking-item { flex-direction: column; align-items: stretch; text-align: center; }
+        .bi-actions { justify-content: center; }
+        .success-actions { flex-direction: column; width: 100%; }
+        .success-actions .btn { width: 100%; }
+    }
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+    <nav class="container">
+        <a href="#top" class="logo"><i class="fa-solid fa-tooth"></i>SONRISA</a>
+        <div class="nav-links" id="navLinks">
+            <a href="#tratamientos">Tratamientos</a>
+            <a href="#equipo">Equipo</a>
+            <a href="#turnos">Turnos</a>
+            <a href="#ubicacion">Ubicación</a>
+            <a href="#turnos" class="nav-cta">Reservar turno</a>
+        </div>
+        <button class="burger" id="burgerBtn" aria-label="Abrir menú"><i class="fa-solid fa-bars"></i></button>
+    </nav>
+</header>
+
+<section class="hero" id="top">
+    <div class="container hero-content">
+        <span class="eyebrow on-dark">Consultorio odontológico · Formosa</span>
+        <h1>Tu sonrisa,<br>en <span>buenas manos</span>.</h1>
+        <p>Odontología general, estética y ortodoncia. Reservá tu turno online eligiendo tratamiento, profesional y horario.</p>
+        <div class="hero-actions">
+            <a href="#turnos" class="btn btn-teal"><i class="fa-solid fa-calendar-check"></i> Reservar turno</a>
+            <a href="#tratamientos" class="btn btn-outline"><i class="fa-solid fa-notes-medical"></i> Ver tratamientos</a>
+        </div>
+    </div>
+</section>
+
+<div class="strip">
+    <div class="container">
+        <div class="item"><i class="fa-solid fa-location-dot"></i> 9 de Julio 560, Formosa Capital</div>
+        <div class="item"><i class="fa-solid fa-clock"></i> Lun a Vie · 08 a 12 y 15 a 19 hs</div>
+        <div class="item"><i class="fa-solid fa-file-shield"></i> Trabajamos con obras sociales</div>
+    </div>
+</div>
+
+<section class="services" id="tratamientos">
+    <div class="container">
+        <div class="section-head center">
+            <span class="eyebrow">Tratamientos</span>
+            <h2>Cuidamos cada sonrisa</h2>
+            <p>Precios de referencia en pesos argentinos, sujetos a evaluación previa.</p>
+        </div>
+        <div class="service-grid-static" id="staticServiceGrid"></div>
+    </div>
+</section>
+
+<section class="booking" id="turnos">
+    <div class="container">
+        <div class="section-head center">
+            <span class="eyebrow">Sistema de turnos</span>
+            <h2>Reservá tu consulta</h2>
+            <p>Completá los pasos y confirmá. Tu turno queda reservado al instante.</p>
+        </div>
+
+        <div class="booking-card">
+            <div class="steps-bar" id="stepsBar"></div>
+
+            <div class="step-panel" data-panel="1">
+                <h3>1. Elegí el tratamiento</h3>
+                <div class="service-grid" id="serviceGrid"></div>
+            </div>
+
+            <div class="step-panel" data-panel="2" hidden>
+                <h3>2. Elegí profesional</h3>
+                <div class="pro-grid" id="proGrid"></div>
+            </div>
+
+            <div class="step-panel" data-panel="3" hidden>
+                <h3>3. Elegí día y horario</h3>
+                <div class="date-scroll" id="dateScroll"></div>
+                <div class="slot-grid" id="slotGrid"></div>
+                <p class="slot-hint" id="slotHint">Elegí un día para ver los horarios disponibles.</p>
+            </div>
+
+            <div class="step-panel" data-panel="4" hidden>
+                <h3>4. Tus datos</h3>
+                <div class="form-grid">
+                    <label>Nombre y apellido
+                        <input id="inputName" type="text" placeholder="Ej: Laura Gómez" autocomplete="name">
+                    </label>
+                    <label>WhatsApp
+                        <input id="inputPhone" type="tel" placeholder="Ej: 3704123456" autocomplete="tel">
+                    </label>
+                    <label class="full">Obra social (opcional)
+                        <input id="inputInsurance" type="text" placeholder="Ej: OSDE, Swiss Medical, particular...">
+                    </label>
+                </div>
+                <p class="form-error" id="formError" hidden></p>
+            </div>
+
+            <div class="step-panel" data-panel="5" hidden>
+                <h3>5. Confirmá tu turno</h3>
+                <div class="summary-box" id="summaryBox"></div>
+            </div>
+
+            <div class="step-panel success-panel" data-panel="success" hidden>
+                <i class="fa-solid fa-circle-check success-icon"></i>
+                <h3>¡Turno reservado!</h3>
+                <p id="successText"></p>
+                <div class="success-actions">
+                    <a href="#" id="waConfirmBtn" target="_blank" class="btn btn-wa"><i class="fa-brands fa-whatsapp"></i> Confirmar por WhatsApp</a>
+                    <button id="icsBtn" class="btn btn-outline-dark"><i class="fa-solid fa-download"></i> Agregar al calendario</button>
+                    <button id="newBookingBtn" class="btn btn-ghost">Reservar otro turno</button>
+                </div>
+            </div>
+
+            <div class="step-actions" id="stepActions">
+                <button class="btn btn-ghost" id="prevBtn" hidden><i class="fa-solid fa-arrow-left"></i> Atrás</button>
+                <button class="btn btn-teal" id="nextBtn">Siguiente <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+        </div>
+
+        <div class="my-bookings" id="myBookings" hidden>
+            <h4><i class="fa-solid fa-list-check"></i> Mis próximos turnos</h4>
+            <div id="myBookingsList"></div>
+        </div>
+    </div>
+</section>
+
+<section class="team" id="equipo">
+    <div class="container">
+        <div class="section-head center">
+            <span class="eyebrow">Equipo</span>
+            <h2>Nuestros profesionales</h2>
+            <p>Matriculados y con formación continua en sus especialidades.</p>
+        </div>
+        <div class="team-grid" id="teamGrid"></div>
+    </div>
+</section>
+
+<section class="insurance">
+    <div class="container">
+        <div class="section-head center">
+            <span class="eyebrow on-dark">Obras sociales</span>
+            <h2 style="color:#fff">Trabajamos con</h2>
+        </div>
+        <div class="insurance-grid" id="insuranceGrid"></div>
+    </div>
+</section>
+
+<section class="location" id="ubicacion">
+    <div class="container location-grid">
+        <div class="location-info">
+            <span class="eyebrow">Ubicación</span>
+            <h2>Te esperamos</h2>
+            <div class="contact-row"><i class="fa-solid fa-location-dot"></i><div><h4>Dirección</h4><p>9 de Julio 560, Formosa Capital, Argentina</p></div></div>
+            <div class="contact-row"><i class="fa-brands fa-whatsapp"></i><div><h4>WhatsApp</h4><a href="https://wa.me/5493704333444" target="_blank">+54 9 3704 33-3444</a></div></div>
+            <div class="contact-row"><i class="fa-solid fa-envelope"></i><div><h4>Email</h4><a href="mailto:turnos@sonrisaodonto.com">turnos@sonrisaodonto.com</a></div></div>
+            <div class="contact-row"><i class="fa-brands fa-instagram"></i><div><h4>Instagram</h4><a href="#" target="_blank">@sonrisa.odonto</a></div></div>
+        </div>
+        <div class="map-frame">
+            <iframe src="https://www.google.com/maps?q=Formosa%20Capital%2C%20Argentina&output=embed" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="footer-top">
+            <div>
+                <div class="footer-logo">SONRISA</div>
+                <p style="margin-top:8px; font-size:0.85rem; max-width:340px; font-family:'Inter',sans-serif;">Consultorio odontológico en Formosa Capital. Reservá tu turno online.</p>
+            </div>
+            <div class="footer-social">
+                <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://wa.me/5493704333444" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 Sonrisa Odontología. Todos los derechos reservados.</span>
+            <span>Sitio de demostración desarrollado por <a href="https://cedetec-digital.netlify.app/" target="_blank">CEDETEC Digital</a></span>
+        </div>
+    </div>
+</footer>
+
+<a href="https://wa.me/5493704333444?text=Hola%2C%20quiero%20consultar%20por%20un%20turno%20en%20Sonrisa" target="_blank" class="wa-float" aria-label="Consultar por WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+</a>
+
+<script>
+/* =========================================================
+   DATOS DEL CONSULTORIO (demo)
+   ========================================================= */
+const SERVICES = [
+    { id: 'consulta',   name: 'Consulta y diagnóstico', duration: 20, price: 12000, desc: 'Evaluación inicial, diagnóstico y plan de tratamiento.', icon: 'fa-notes-medical' },
+    { id: 'limpieza',   name: 'Limpieza dental',        duration: 30, price: 18000, desc: 'Profilaxis y remoción de sarro con equipamiento moderno.', icon: 'fa-tooth' },
+    { id: 'blanqueo',   name: 'Blanqueamiento',         duration: 60, price: 45000, desc: 'Blanqueamiento dental profesional en consultorio.',        icon: 'fa-star' },
+    { id: 'extraccion', name: 'Extracción simple',      duration: 30, price: 22000, desc: 'Extracción de piezas dentales con anestesia local.',      icon: 'fa-hand-holding-medical' },
+    { id: 'ortodoncia', name: 'Ortodoncia (consulta)',  duration: 30, price: 15000, desc: 'Evaluación inicial para brackets o alineadores.',         icon: 'fa-teeth' },
+    { id: 'endodoncia', name: 'Endodoncia',             duration: 60, price: 35000, desc: 'Tratamiento de conducto, por pieza dental.',              icon: 'fa-syringe' },
+];
+
+const PROFESSIONALS = {
+    bruno:     { name: 'Dr. Bruno Aquino',    specialty: 'Odontología general', photo: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=500&auto=format&fit=crop' },
+    valentina: { name: 'Dra. Valentina Rojas', specialty: 'Ortodoncia',          photo: 'https://images.unsplash.com/photo-1659353888906-adb3e0041693?q=80&w=500&auto=format&fit=crop' },
+    zulema:    { name: 'Dra. Zulema Paredes',  specialty: 'Endodoncia e implantes', photo: 'https://images.unsplash.com/photo-1643297654416-05795d62e39c?q=80&w=500&auto=format&fit=crop' },
+};
+
+const INSURANCES = ['OSDE', 'Swiss Medical', 'Galeno', 'IOSFA', 'IPS Formosa', 'PAMI', 'Particular'];
+
+const BOOKINGS_KEY = 'sonrisa_bookings';
+const WHATSAPP_NUMBER = '5493704333444';
+
+const DOW_SHORT = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+const DOW_LONG  = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+const MON_SHORT = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+const MON_LONG  = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+
+/* =========================================================
+   ESTADO
+   ========================================================= */
+const state = { step: 1, service: null, proId: null, date: null, time: null, name: '', phone: '', insurance: '' };
+
+/* =========================================================
+   HELPERS
+   ========================================================= */
+function pad2(n) { return n.toString().padStart(2, '0'); }
+function toISO(d) { return `${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}`; }
+function hashStr(s) { let h = 0; for (let i = 0; i < s.length; i++) { h = (h << 5) - h + s.charCodeAt(i); h |= 0; } return Math.abs(h); }
+
+function getUpcomingDates(count) {
+    const out = [];
+    const today = new Date(); today.setHours(0,0,0,0);
+    for (let i = 1; out.length < count; i++) {
+        const d = new Date(today); d.setDate(d.getDate() + i);
+        out.push({ date: d, iso: toISO(d), dow: d.getDay(), closed: d.getDay() === 0 });
+    }
+    return out;
+}
+
+function getSlotsForDate(dow) {
+    if (dow === 0) return [];
+    if (dow === 6) { const s = []; for (let h = 8; h < 12; h++) s.push(`${pad2(h)}:00`, `${pad2(h)}:30`); return s; }
+    const s = [];
+    for (let h = 8; h < 12; h++) s.push(`${pad2(h)}:00`, `${pad2(h)}:30`);
+    for (let h = 15; h < 19; h++) s.push(`${pad2(h)}:00`, `${pad2(h)}:30`);
+    return s;
+}
+
+function getBookings() { try { return JSON.parse(localStorage.getItem(BOOKINGS_KEY)) || []; } catch { return []; } }
+function saveBookings(list) { try { localStorage.setItem(BOOKINGS_KEY, JSON.stringify(list)); } catch {} }
+
+function isHashOccupied(dateISO, proId, time) { const h = hashStr(`${dateISO}|${proId}|${time}`); return (h % 5) < 2; }
+function isSlotBookedLocally(dateISO, proId, time) { return getBookings().some(b => b.dateISO === dateISO && b.time === time && b.proId === proId); }
+function isSlotAvailable(dateISO, proId, time) {
+    if (isSlotBookedLocally(dateISO, proId, time)) return false;
+    return !isHashOccupied(dateISO, proId, time);
+}
+
+function formatDateLong(iso) { const d = new Date(iso + 'T00:00:00'); return `${DOW_LONG[d.getDay()]} ${d.getDate()} de ${MON_LONG[d.getMonth()]}`; }
+function formatDateShort(iso) { const d = new Date(iso + 'T00:00:00'); return `${pad2(d.getDate())}/${pad2(d.getMonth()+1)}`; }
+function getService(id) { return SERVICES.find(s => s.id === id); }
+function getPro(id) { return PROFESSIONALS[id]; }
+function money(n) { return '$' + n.toLocaleString('es-AR'); }
+
+/* =========================================================
+   RENDER: TRATAMIENTOS (estático)
+   ========================================================= */
+function renderStaticServices() {
+    const el = document.getElementById('staticServiceGrid');
+    el.innerHTML = SERVICES.map(s => `
+        <div class="service-card">
+            <i class="fa-solid ${s.icon}"></i>
+            <h3>${s.name}</h3>
+            <p>${s.desc}</p>
+            <div class="service-meta">
+                <span class="duration"><i class="fa-regular fa-clock"></i> ${s.duration} min</span>
+                <span class="price">${money(s.price)}</span>
+            </div>
+        </div>
+    `).join('');
+}
+
+/* =========================================================
+   RENDER: EQUIPO
+   ========================================================= */
+function renderTeam() {
+    const el = document.getElementById('teamGrid');
+    el.innerHTML = Object.entries(PROFESSIONALS).map(([id, p]) => `
+        <div class="team-card">
+            <div class="team-photo"><img src="${p.photo}" alt="${p.name}"></div>
+            <div class="team-info"><h3>${p.name}</h3><p>${p.specialty}</p></div>
+        </div>
+    `).join('');
+}
+
+function renderInsurances() {
+    document.getElementById('insuranceGrid').innerHTML = INSURANCES.map(i => `<span class="insurance-chip">${i}</span>`).join('');
+}
+
+/* =========================================================
+   WIZARD - PASO 1: TRATAMIENTO
+   ========================================================= */
+function renderServiceGrid() {
+    const el = document.getElementById('serviceGrid');
+    el.innerHTML = SERVICES.map(s => `
+        <div class="pick-card ${state.service === s.id ? 'selected' : ''}" data-service="${s.id}">
+            <i class="fa-solid ${s.icon}"></i>
+            <h4>${s.name}</h4>
+            <div class="meta">${s.duration} min · <span class="price">${money(s.price)}</span></div>
+        </div>
+    `).join('');
+    el.querySelectorAll('[data-service]').forEach(card => {
+        card.addEventListener('click', () => { state.service = card.dataset.service; renderServiceGrid(); updateNextButton(); });
+    });
+}
+
+/* =========================================================
+   WIZARD - PASO 2: PROFESIONAL
+   ========================================================= */
+function renderProfessionals() {
+    const el = document.getElementById('proGrid');
+    el.innerHTML = Object.entries(PROFESSIONALS).map(([id, p]) => `
+        <div class="pick-card pro-card ${state.proId === id ? 'selected' : ''}" data-pro="${id}">
+            <div class="pro-avatar"><img src="${p.photo}" alt="${p.name}"></div>
+            <h4>${p.name}</h4>
+            <div class="meta">${p.specialty}</div>
+        </div>
+    `).join('');
+    el.querySelectorAll('[data-pro]').forEach(card => {
+        card.addEventListener('click', () => {
+            state.proId = card.dataset.pro; state.date = null; state.time = null;
+            renderProfessionals(); updateNextButton();
+        });
+    });
+}
+
+/* =========================================================
+   WIZARD - PASO 3: FECHA Y HORA
+   ========================================================= */
+function renderDateScroll() {
+    const el = document.getElementById('dateScroll');
+    const dates = getUpcomingDates(14);
+    el.innerHTML = dates.map(d => `
+        <div class="date-chip ${d.closed ? 'disabled' : ''} ${state.date === d.iso ? 'selected' : ''}" ${d.closed ? '' : `data-date="${d.iso}"`}>
+            <div class="dow">${DOW_SHORT[d.dow]}</div>
+            <div class="num">${d.date.getDate()}</div>
+            <div class="mon">${d.closed ? 'Cerrado' : MON_SHORT[d.date.getMonth()]}</div>
+        </div>
+    `).join('');
+    el.querySelectorAll('[data-date]').forEach(chip => {
+        chip.addEventListener('click', () => { state.date = chip.dataset.date; state.time = null; renderDateScroll(); renderSlots(); updateNextButton(); });
+    });
+}
+
+function renderSlots() {
+    const grid = document.getElementById('slotGrid');
+    const hint = document.getElementById('slotHint');
+    if (!state.date) { grid.innerHTML = ''; hint.hidden = false; hint.textContent = 'Elegí un día para ver los horarios disponibles.'; return; }
+    const dow = new Date(state.date + 'T00:00:00').getDay();
+    const slots = getSlotsForDate(dow);
+    if (slots.length === 0) { grid.innerHTML = ''; hint.hidden = false; hint.textContent = 'Cerrado ese día. Elegí otra fecha.'; return; }
+    hint.hidden = true;
+    grid.innerHTML = slots.map(t => {
+        const available = isSlotAvailable(state.date, state.proId, t);
+        const selected = state.time === t;
+        return `<button type="button" class="slot-btn ${selected ? 'selected' : ''} ${!available ? 'occupied' : ''}" ${available ? `data-slot="${t}"` : 'disabled'}>${t}</button>`;
+    }).join('');
+    grid.querySelectorAll('[data-slot]').forEach(btn => {
+        btn.addEventListener('click', () => { state.time = btn.dataset.slot; renderSlots(); updateNextButton(); });
+    });
+}
+
+/* =========================================================
+   WIZARD - PASO 5: RESUMEN
+   ========================================================= */
+function renderSummary() {
+    const s = getService(state.service);
+    const p = getPro(state.proId);
+    const box = document.getElementById('summaryBox');
+    box.innerHTML = `
+        <div class="summary-row"><span class="label">Tratamiento</span><span class="value">${s.name} (${s.duration} min)</span></div>
+        <div class="summary-row"><span class="label">Profesional</span><span class="value">${p.name}</span></div>
+        <div class="summary-row"><span class="label">Fecha</span><span class="value">${formatDateLong(state.date)}</span></div>
+        <div class="summary-row"><span class="label">Horario</span><span class="value">${state.time} hs</span></div>
+        <div class="summary-row"><span class="label">Nombre</span><span class="value">${state.name}</span></div>
+        <div class="summary-row"><span class="label">WhatsApp</span><span class="value">${state.phone}</span></div>
+        ${state.insurance ? `<div class="summary-row"><span class="label">Obra social</span><span class="value">${state.insurance}</span></div>` : ''}
+        <div class="summary-row"><span class="label">Precio estimado</span><span class="value">${money(s.price)}</span></div>
+    `;
+}
+
+/* =========================================================
+   MIS TURNOS
+   ========================================================= */
+function renderMyBookings() {
+    const wrap = document.getElementById('myBookings');
+    const list = document.getElementById('myBookingsList');
+    const bookings = getBookings().sort((a, b) => (a.dateISO + a.time).localeCompare(b.dateISO + b.time));
+    if (bookings.length === 0) { wrap.hidden = true; return; }
+    wrap.hidden = false;
+    list.innerHTML = bookings.map(b => {
+        const s = getService(b.service); const p = getPro(b.proId);
+        return `
+        <div class="booking-item">
+            <div class="bi-main"><strong>${s ? s.name : b.service} · ${formatDateShort(b.dateISO)} ${b.time} hs</strong><span>${p ? p.name : ''} · ${b.name}</span></div>
+            <div class="bi-actions">
+                <a href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(buildWhatsAppMessage(b))}" target="_blank" title="Confirmar por WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                <button data-ics="${b.id}" title="Agregar al calendario"><i class="fa-solid fa-download"></i></button>
+                <button class="cancel-btn" data-cancel="${b.id}" title="Cancelar"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+        </div>`;
+    }).join('');
+    list.querySelectorAll('[data-ics]').forEach(btn => btn.addEventListener('click', () => downloadICS(bookings.find(b => b.id === btn.dataset.ics))));
+    list.querySelectorAll('[data-cancel]').forEach(btn => btn.addEventListener('click', () => cancelBooking(btn.dataset.cancel)));
+}
+
+function cancelBooking(id) {
+    saveBookings(getBookings().filter(b => b.id !== id));
+    renderMyBookings();
+    renderSlots();
+}
+
+/* =========================================================
+   CONFIRMAR RESERVA
+   ========================================================= */
+function buildWhatsAppMessage(booking) {
+    const s = getService(booking.service); const p = getPro(booking.proId);
+    const lines = [
+        'Hola! Quiero confirmar mi turno en Sonrisa Odontología:',
+        `• Tratamiento: ${s.name}`,
+        `• Profesional: ${p.name}`,
+        `• Fecha: ${formatDateLong(booking.dateISO)} - ${booking.time} hs`,
+        `• Nombre: ${booking.name}`,
+        `• Tel: ${booking.phone}`,
+    ];
+    if (booking.insurance) lines.push(`• Obra social: ${booking.insurance}`);
+    return lines.join('\n');
+}
+
+function downloadICS(booking) {
+    const s = getService(booking.service); const p = getPro(booking.proId);
+    const [hh, mm] = booking.time.split(':').map(Number);
+    const start = new Date(booking.dateISO + 'T00:00:00'); start.setHours(hh, mm, 0, 0);
+    const end = new Date(start.getTime() + s.duration * 60000);
+    const fmt = (d) => d.getUTCFullYear() + pad2(d.getUTCMonth()+1) + pad2(d.getUTCDate()) + 'T' + pad2(d.getUTCHours()) + pad2(d.getUTCMinutes()) + '00Z';
+    const ics = [
+        'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Sonrisa Odontologia//Turnos//ES', 'BEGIN:VEVENT',
+        `UID:${booking.id}@sonrisaodonto.com`, `DTSTAMP:${fmt(new Date())}`, `DTSTART:${fmt(start)}`, `DTEND:${fmt(end)}`,
+        `SUMMARY:Turno en Sonrisa Odontología - ${s.name}`,
+        `DESCRIPTION:Profesional: ${p.name}${booking.insurance ? '\\nObra social: ' + booking.insurance : ''}`,
+        'LOCATION:9 de Julio 560, Formosa Capital, Argentina', 'END:VEVENT', 'END:VCALENDAR',
+    ].join('\r\n');
+    const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = 'turno-sonrisa.ics';
+    document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+}
+
+function confirmBooking() {
+    const booking = {
+        id: (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2)),
+        service: state.service, proId: state.proId, dateISO: state.date, time: state.time,
+        name: state.name, phone: state.phone, insurance: state.insurance, createdAt: new Date().toISOString(),
+    };
+    const list = getBookings(); list.push(booking); saveBookings(list);
+
+    const s = getService(booking.service); const p = getPro(booking.proId);
+    document.getElementById('successText').textContent =
+        `${s.name} con ${p.name}, el ${formatDateLong(booking.dateISO)} a las ${booking.time} hs. Te esperamos en 9 de Julio 560.`;
+    document.getElementById('waConfirmBtn').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(buildWhatsAppMessage(booking))}`;
+    document.getElementById('icsBtn').onclick = () => downloadICS(booking);
+
+    showPanel('success');
+    document.getElementById('stepActions').style.display = 'none';
+    renderMyBookings();
+}
+
+function resetWizard() {
+    state.step = 1; state.service = null; state.proId = null; state.date = null; state.time = null;
+    state.name = ''; state.phone = ''; state.insurance = '';
+    document.getElementById('inputName').value = '';
+    document.getElementById('inputPhone').value = '';
+    document.getElementById('inputInsurance').value = '';
+    document.getElementById('formError').hidden = true;
+    document.getElementById('stepActions').style.display = 'flex';
+    renderServiceGrid(); renderProfessionals(); renderDateScroll(); renderSlots();
+    goToStep(1);
+}
+
+/* =========================================================
+   NAVEGACIÓN DEL WIZARD
+   ========================================================= */
+function renderStepsBar() {
+    const labels = ['Tratamiento', 'Profesional', 'Fecha y hora', 'Tus datos', 'Confirmar'];
+    const bar = document.getElementById('stepsBar');
+    let html = '';
+    labels.forEach((label, i) => {
+        const n = i + 1;
+        const cls = n < state.step ? 'done' : (n === state.step ? 'active' : '');
+        html += `<div class="step-dot ${cls}"><span>${n < state.step ? '<i class="fa-solid fa-check"></i>' : n}</span>${label}</div>`;
+        if (n < labels.length) html += `<div class="step-line ${n < state.step ? 'done' : ''}"></div>`;
+    });
+    bar.innerHTML = html;
+}
+
+function showPanel(name) { document.querySelectorAll('.step-panel').forEach(p => { p.hidden = p.dataset.panel !== String(name); }); }
+
+function validateStep(step) {
+    if (step === 1) return !!state.service;
+    if (step === 2) return !!state.proId;
+    if (step === 3) return !!(state.date && state.time);
+    if (step === 4) {
+        const name = document.getElementById('inputName').value.trim();
+        const phone = document.getElementById('inputPhone').value.trim();
+        const digits = phone.replace(/\D/g, '');
+        const err = document.getElementById('formError');
+        if (name.length < 3) { err.hidden = false; err.textContent = 'Ingresá tu nombre y apellido.'; return false; }
+        if (digits.length < 8) { err.hidden = false; err.textContent = 'Ingresá un WhatsApp válido (con código de área).'; return false; }
+        err.hidden = true;
+        state.name = name; state.phone = phone;
+        state.insurance = document.getElementById('inputInsurance').value.trim();
+        return true;
+    }
+    return true;
+}
+
+function validateStepSoft(step) {
+    if (step === 1) return !!state.service;
+    if (step === 2) return !!state.proId;
+    if (step === 3) return !!(state.date && state.time);
+    return true;
+}
+function updateNextButton() {
+    const nextBtn = document.getElementById('nextBtn');
+    nextBtn.disabled = state.step <= 3 ? !validateStepSoft(state.step) : false;
+}
+
+function goToStep(n) {
+    state.step = n;
+    renderStepsBar();
+    showPanel(n);
+    document.getElementById('prevBtn').hidden = n === 1;
+    const nextBtn = document.getElementById('nextBtn');
+    if (n === 3) renderSlots();
+    if (n === 5) renderSummary();
+    nextBtn.innerHTML = n === 4 ? 'Ver resumen <i class="fa-solid fa-arrow-right"></i>'
+        : n === 5 ? 'Confirmar turno <i class="fa-solid fa-check"></i>'
+        : 'Siguiente <i class="fa-solid fa-arrow-right"></i>';
+    updateNextButton();
+}
+
+document.getElementById('nextBtn').addEventListener('click', () => {
+    if (state.step === 5) { confirmBooking(); return; }
+    if (!validateStep(state.step)) return;
+    goToStep(state.step + 1);
+});
+document.getElementById('prevBtn').addEventListener('click', () => goToStep(Math.max(1, state.step - 1)));
+document.getElementById('newBookingBtn').addEventListener('click', resetWizard);
+document.getElementById('inputPhone').addEventListener('input', updateNextButton);
+document.getElementById('inputName').addEventListener('input', updateNextButton);
+
+/* =========================================================
+   HEADER + BURGER
+   ========================================================= */
+const header = document.getElementById('siteHeader');
+window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 40));
+
+const burger = document.getElementById('burgerBtn');
+const navLinks = document.getElementById('navLinks');
+burger.addEventListener('click', () => navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+/* =========================================================
+   INIT
+   ========================================================= */
+renderStaticServices();
+renderTeam();
+renderInsurances();
+renderServiceGrid();
+renderProfessionals();
+renderDateScroll();
+renderSlots();
+renderStepsBar();
+renderMyBookings();
+updateNextButton();
+</script>
+
+</body>
+</html>
